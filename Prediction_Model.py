@@ -42,6 +42,7 @@ def load_data(ticker):
 
 # --- Fungsi: Ambil dan ubah income statement ---
 
+
 @st.cache_data
 def income_statement(ticker):
     stock = yf.Ticker(ticker)
@@ -53,6 +54,7 @@ def income_statement(ticker):
     return income[income.index >= pd.to_datetime("2023-12-31")]
 
 # --- Fungsi: Ambil dan ubah balance sheet ---
+
 
 @st.cache_data
 def balance_sheet(ticker):
@@ -104,7 +106,7 @@ def main():
     # Side bar
     # news = st.Page("Pages/News.py", title="📰News", )
     # st.sidebar.page_link("pages/News.py", label="📰Berita")
-    
+
     # Financial = st.Page("Pages/Financial.py", title="💰Financial")
     # st.sidebar.page_link("Pages/Financial.py", label="💰 Keuangan")
 
@@ -140,7 +142,6 @@ def main():
         height=500
     )
     st.plotly_chart(candlestick_fig, use_container_width=True)
-    
 
     st.subheader(f"💰 Income Statement: {selected_stock}")
     try:
@@ -159,13 +160,12 @@ def main():
     merged_data = pd.concat([data, income_data, balance_data]).sort_index()
     merged_data = merged_data.fillna(method="ffill")
     merged_data = merged_data[~merged_data.index.duplicated(keep='last')]
-    dataset_lama = merged_data[merged_data.index >=
-                               pd.to_datetime("2024-01-01")]
+    dataset_lama = merged_data[merged_data.index >=pd.to_datetime("2024-01-01")]
 
     # Penggabungan data
     st.subheader("🧾 Data Gabungan")
     st.dataframe(dataset_lama.tail(), height=250)
-    
+
     # Perumusan ratio
     st.subheader("📐 Rasio Keuangan")
     dataset_lama["DER"] = ratio(
