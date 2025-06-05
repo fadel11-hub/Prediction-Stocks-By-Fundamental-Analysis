@@ -5,7 +5,7 @@
 Yahoo finance and platform ajaib
 ```
 
-## Run steamlit app
+## Run streamlit app
 ```
 Dasboard/python -m streamlit run Prediction_Model.py
 ```
